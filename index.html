@@ -205,7 +205,14 @@
 				<p>and make it the best memory..</p>
 				<p>lastly...</p>
 				<p>I'd like to wish you one more time</p>
-				<p>a very happy birthday Martina Pakyu ka!</p>
+				<p>a very happy birthday Martina!</p>
+			</div>
+		</div>
+
+		<!-- Final Card Section displaying the Created by your friends button -->
+		<div class="row final-card-section">
+			<div class="col-md-12">
+				<button class="btn btn-primary" id="view_card" style="font-size: 18px; padding: 12px 28px; border-radius: 25px; background-color: #b08a58; border-color: #b08a58; color: white;">Created by your friends</button>
 			</div>
 		</div>
 		<div class="navbar navbar-fixed-bottom">
@@ -235,6 +242,53 @@
 		</div>
 
 
+	</div>
+	<!-- Full-screen birthday card overlay -->
+	<div id="card-overlay">
+		<div class="card-overlay-inner">
+			<button class="card-overlay-close" id="card-overlay-close" title="Back">&#8592; Back</button>
+			<div class="card-overlay-content">
+				<div class="overlay-card">
+					<div class="overlay-card-border-inner">
+						
+						<!-- Festive Image Decorations -->
+						<div class="overlay-card-decorations">
+							<img src="banner.png" alt="banner" class="decor-banner">
+							<img src="b1.png" alt="balloon" class="decor-b1">
+							<img src="b2.png" alt="balloon" class="decor-b2">
+							<img src="b3.png" alt="balloon" class="decor-b3">
+							<img src="cake128.png" alt="cake" class="decor-cake">
+						</div>
+
+						<div class="overlay-card-confetti-container">
+							<span class="confetti c1"></span>
+							<span class="confetti c2"></span>
+							<span class="confetti c3"></span>
+							<span class="confetti c4"></span>
+							<span class="confetti c5"></span>
+							<span class="confetti c6"></span>
+							<span class="confetti c7"></span>
+							<span class="confetti c8"></span>
+							<span class="confetti c9"></span>
+							<span class="confetti c10"></span>
+						</div>
+						<div class="overlay-card-photo">
+							<img id="card_preview_img" src="lastpic.jpg" alt="Martina birthday card photo" onerror="this.onerror=null;this.src='mar1.jpg';">
+						</div>
+						<div class="overlay-card-copy">
+							<p class="overlay-card-greeting">Happy Birthday</p>
+							<h1 class="overlay-card-name">Martina</h1>
+						</div>
+						<div class="overlay-card-footer-banner">
+							<span class="footer-stars">&#10022;</span> Greetings for your friends ♥<span class="footer-stars">&#10022;</span>
+						</div>
+					</div>
+				</div>
+				<button class="btn overlay-save-btn" id="overlay_save_card">&#8595; Save for My Day</button>
+				<button class="btn overlay-upload-btn" id="overlay_upload_btn">&#128247; Upload Your Photo</button>
+				<input type="file" id="card_image_upload" accept="image/*" style="display: none;">
+			</div>
+		</div>
 	</div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

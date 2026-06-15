@@ -66,7 +66,7 @@ $('document').ready(function(){
 			ctx.stroke();
 		}
 
-		function drawStoryCard(img) {
+		function drawStoryCard(img, bannerImg, b1Img, b2Img, b3Img, cakeImg) {
 		// Create canvas
 		var canvas = document.createElement('canvas');
 		var ctx = canvas.getContext('2d');
@@ -93,16 +93,6 @@ $('document').ready(function(){
 		ctx.lineWidth = 2;
 		ctx.strokeRect(56, 56, width - 112, height - 112);
 
-		// Photo area with white frame
-		ctx.fillStyle = '#ffffff';
-		ctx.fillRect(76, 76, width - 152, 1300);
-
-		// Draw the photo (20px white padding)
-		var photoX = 96, photoY = 96, photoW = width - 192, photoH = 1260;
-		ctx.fillStyle = '#ffffff';
-		ctx.fillRect(photoX - 12, photoY - 12, photoW + 24, photoH + 24);
-		drawCoverImage(ctx, img, photoX, photoY, photoW, photoH);
-
 		// Add subtle confetti circles for a festive feel
 		var confettiColors = ['#ff8a80', '#ffab40', '#ffd740', '#c6ff00', '#69f0ae'];
 		for (var i = 0; i < 120; i++) {
@@ -115,6 +105,91 @@ $('document').ready(function(){
 			ctx.fill();
 		}
 
+		// Photo area with white frame (like polaroid)
+		var polaroidX = 96;
+		var polaroidY = 130;
+		var polaroidW = width - 192;
+		var polaroidH = 1100;
+		ctx.fillStyle = '#ffffff';
+		ctx.fillRect(polaroidX, polaroidY, polaroidW, polaroidH);
+
+		// Shadow/border around polaroid frame
+		ctx.strokeStyle = 'rgba(0,0,0,0.1)';
+		ctx.lineWidth = 4;
+		ctx.strokeRect(polaroidX, polaroidY, polaroidW, polaroidH);
+
+		// Draw the photo inside the polaroid frame
+		var photoPadSide = 32;
+		var photoPadTop = 32;
+		var photoPadBottom = 80;
+		var photoX = polaroidX + photoPadSide;
+		var photoY = polaroidY + photoPadTop;
+		var photoW = polaroidW - (photoPadSide * 2);
+		var photoH = polaroidH - photoPadTop - photoPadBottom;
+		drawCoverImage(ctx, img, photoX, photoY, photoW, photoH);
+
+		// Draw decorative elements:
+		// 1. Banner
+		if (bannerImg) {
+			var bannerW = width * 0.85;
+			var bannerH = (bannerImg.height / bannerImg.width) * bannerW;
+			var bannerX = (width - bannerW) / 2;
+			var bannerY = 80;
+			ctx.drawImage(bannerImg, bannerX, bannerY, bannerW, bannerH);
+		}
+
+		// 2. Balloon 1 (Top Left, rotated -15 degrees)
+		if (b1Img) {
+			ctx.save();
+			var b1W = 240;
+			var b1H = (b1Img.height / b1Img.width) * b1W;
+			var b1CenterX = 130;
+			var b1CenterY = 150;
+			ctx.translate(b1CenterX, b1CenterY);
+			ctx.rotate(-15 * Math.PI / 180);
+			ctx.drawImage(b1Img, -b1W / 2, -b1H / 2, b1W, b1H);
+			ctx.restore();
+		}
+
+		// 3. Balloon 2 (Top/Middle Right, rotated 10 degrees)
+		if (b2Img) {
+			ctx.save();
+			var b2W = 210;
+			var b2H = (b2Img.height / b2Img.width) * b2W;
+			var b2CenterX = width - 120;
+			var b2CenterY = 380;
+			ctx.translate(b2CenterX, b2CenterY);
+			ctx.rotate(10 * Math.PI / 180);
+			ctx.drawImage(b2Img, -b2W / 2, -b2H / 2, b2W, b2H);
+			ctx.restore();
+		}
+
+		// 4. Balloon 3 (Lower Left, rotated -10 degrees)
+		if (b3Img) {
+			ctx.save();
+			var b3W = 200;
+			var b3H = (b3Img.height / b3Img.width) * b3W;
+			var b3CenterX = 110;
+			var b3CenterY = 1150;
+			ctx.translate(b3CenterX, b3CenterY);
+			ctx.rotate(-10 * Math.PI / 180);
+			ctx.drawImage(b3Img, -b3W / 2, -b3H / 2, b3W, b3H);
+			ctx.restore();
+		}
+
+		// 5. Cake (Lower Right, rotated 8 degrees)
+		if (cakeImg) {
+			ctx.save();
+			var cakeW = 190;
+			var cakeH = (cakeImg.height / cakeImg.width) * cakeW;
+			var cakeCenterX = width - 130;
+			var cakeCenterY = 1320;
+			ctx.translate(cakeCenterX, cakeCenterY);
+			ctx.rotate(8 * Math.PI / 180);
+			ctx.drawImage(cakeImg, -cakeW / 2, -cakeH / 2, cakeW, cakeH);
+			ctx.restore();
+		}
+
 		// Gold divider line below the photo
 		ctx.fillStyle = '#b08a58';
 		ctx.fillRect(width / 2 - 80, 1380, 160, 5);
@@ -125,19 +200,35 @@ $('document').ready(function(){
 		ctx.font = '400 108px Georgia, Times New Roman, serif';
 		ctx.fillText('Happy Birthday', width / 2, 1520);
 
-		// Name text
-		ctx.fillStyle = '#231f20';
-		ctx.font = '700 152px Arial, sans-serif';
+		// Gold gradient for Name text
+		var nameGrad = ctx.createLinearGradient(0, 1600, 0, 1750);
+		nameGrad.addColorStop(0, '#d4a96a');
+		nameGrad.addColorStop(1, '#8a6b43');
+		ctx.fillStyle = nameGrad;
+
+		// Shadow/Drop-shadow for name text
+		ctx.shadowColor = 'rgba(138, 107, 67, 0.3)';
+		ctx.shadowBlur = 6;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 4;
+
+		ctx.font = '700 152px Signika, Arial, sans-serif';
 		ctx.fillText('Martina', width / 2, 1700);
 
-		// Footer banner with "greet by your friends"
+		// Reset shadow
+		ctx.shadowColor = 'transparent';
+		ctx.shadowBlur = 0;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 0;
+
+		// Footer banner with "greet by your friends" (smaller size)
 		var footerHeight = 100;
 		ctx.fillStyle = '#b08a58';
 		ctx.fillRect(0, height - footerHeight, width, footerHeight);
 		ctx.fillStyle = '#ffffff';
-		ctx.font = '500 36px Signika, Arial, sans-serif';
+		ctx.font = '500 28px Signika, Arial, sans-serif';
 		ctx.textAlign = 'center';
-		ctx.fillText('greet by your friends', width / 2, height - footerHeight / 2 + 12);
+		ctx.fillText('greet by your friends', width / 2, height - footerHeight / 2 + 10);
 
 		return canvas;
 	}
@@ -163,24 +254,81 @@ $('document').ready(function(){
 			$('#view_card').show();
 		});
 
+		// Trigger file input dialog
+		$(document).on('click', '#overlay_upload_btn', function(){
+			$('#card_image_upload').click();
+		});
+
+		// Preview uploaded picture on the card
+		$(document).on('change', '#card_image_upload', function(e){
+			var file = e.target.files[0];
+			if (file) {
+				var reader = new FileReader();
+				reader.onload = function(event) {
+					$('#card_preview_img').attr('src', event.target.result);
+				};
+				reader.readAsDataURL(file);
+			}
+		});
+
+		function loadImage(src) {
+			return new Promise(function(resolve, reject) {
+				var img = new Image();
+				img.onload = function() {
+					resolve(img);
+				};
+				img.onerror = function() {
+					resolve(null);
+				};
+				img.src = src;
+			});
+		}
+
 		$(document).on('click', '#overlay_save_card', function(){
 			var button = $(this);
-			var img = new Image();
-
 			button.prop('disabled', true).text('Preparing...');
-			img.onload = function() {
-				var canvas = drawStoryCard(img);
-				var link = document.createElement('a');
-				link.download = 'happy-birthday-martina-myday.png';
-				link.href = canvas.toDataURL('image/png');
-				link.click();
-				button.prop('disabled', false).text('Save for My Day');
-			};
-			img.onerror = function() {
-				img.onerror = null;
-				img.src = 'mar1.jpg';
-			};
-			img.src = 'lastpic.jpg';
+
+			var imgSrc = $('#card_preview_img').attr('src') || 'lastpic.jpg';
+
+			Promise.all([
+				loadImage(imgSrc),
+				loadImage('banner.png'),
+				loadImage('b1.png'),
+				loadImage('b2.png'),
+				loadImage('b3.png'),
+				loadImage('cake128.png')
+			]).then(function(images) {
+				var mainImg = images[0];
+				var bannerImg = images[1];
+				var b1Img = images[2];
+				var b2Img = images[3];
+				var b3Img = images[4];
+				var cakeImg = images[5];
+
+				if (!mainImg) {
+					var fb = new Image();
+					fb.onload = function() {
+						proceed(fb, bannerImg, b1Img, b2Img, b3Img, cakeImg);
+					};
+					fb.src = 'mar1.jpg';
+				} else {
+					proceed(mainImg, bannerImg, b1Img, b2Img, b3Img, cakeImg);
+				}
+			});
+
+			function proceed(mainImg, bannerImg, b1Img, b2Img, b3Img, cakeImg) {
+				try {
+					var canvas = drawStoryCard(mainImg, bannerImg, b1Img, b2Img, b3Img, cakeImg);
+					var link = document.createElement('a');
+					link.download = 'happy-birthday-martina-myday.png';
+					link.href = canvas.toDataURL('image/png');
+					link.click();
+				} catch (e) {
+					console.error("Failed to generate/save card:", e);
+				} finally {
+					button.prop('disabled', false).text('Save for My Day');
+				}
+			}
 		});
 
 		function arrangeBirthdayBalloons(speed) {

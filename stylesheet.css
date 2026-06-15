@@ -3021,22 +3021,38 @@ body.story-open .navbar-fixed-bottom {
 .overlay-card {
 	width: 100%;
 	max-width: 400px;
-	background: #fbfaf7;
-	border: 1px solid rgba(176, 138, 88, 0.3);
+	background: linear-gradient(180deg, #fff9f0 0%, #ffefd5 100%);
+	border: 8px solid #b08a58;
 	border-radius: 12px;
-	box-shadow: 0 24px 64px rgba(35, 31, 32, 0.15);
+	box-shadow: 0 24px 64px rgba(35, 31, 32, 0.25);
+	overflow: hidden;
+	position: relative;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+.overlay-card-border-inner {
+	border: 2px solid #d8c7aa;
+	border-radius: 6px;
+	padding: 12px;
+	position: relative;
+	background: transparent;
 	overflow: hidden;
 }
 
 .overlay-card-photo {
 	position: relative;
 	width: 100%;
-	padding-bottom: 118%;
+	padding-bottom: 110%;
 	overflow: hidden;
-	background: #e8ddd3;
-	border: 10px solid #ffffff;
-	border-radius: 8px 8px 0 0;
+	background: #ffffff;
+	border: 12px solid #ffffff;
+	border-bottom-width: 30px;
+	box-shadow: 0 8px 20px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+	border-radius: 6px;
 	box-sizing: border-box;
+	z-index: 3;
+	margin-top: 25px;
 }
 
 .overlay-card-photo img {
@@ -3051,20 +3067,21 @@ body.story-open .navbar-fixed-bottom {
 }
 
 .overlay-card-copy {
-	padding: 24px 20px 20px;
+	padding: 15px 10px 15px;
 	text-align: center;
-	background: #fbfaf7;
-	border-top: none;
+	background: transparent;
+	position: relative;
+	z-index: 4;
 }
 
 .overlay-card-copy::before {
 	content: '';
 	display: block;
-	width: 56px;
-	height: 3px;
-	background: linear-gradient(90deg, #b08a58, #d4a96a);
+	width: 80px;
+	height: 4px;
+	background: #b08a58;
 	border-radius: 2px;
-	margin: 0 auto 18px;
+	margin: 0 auto 12px;
 }
 
 .overlay-card-greeting {
@@ -3073,18 +3090,170 @@ body.story-open .navbar-fixed-bottom {
 	font-weight: 400;
 	color: #3d2f20;
 	letter-spacing: 1px;
-	margin: 0 0 6px;
+	margin: 0 0 4px;
 	line-height: 1.2;
 }
 
 .overlay-card-name {
 	font-family: 'Signika', Arial, sans-serif;
-	font-size: 48px;
+	font-size: 52px;
 	font-weight: 700;
-	color: #231f20;
-	letter-spacing: 1px;
+	background: linear-gradient(180deg, #d4a96a 0%, #8a6b43 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	letter-spacing: 1.5px;
 	margin: 0;
-	line-height: 1;
+	line-height: 1.1;
+	filter: drop-shadow(0 2px 3px rgba(138, 107, 67, 0.3));
+}
+
+/* Festive Image Decorations */
+.overlay-card-decorations {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 5;
+}
+
+.decor-banner {
+	position: absolute;
+	top: -5px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 85%;
+	filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.decor-b1 {
+	position: absolute;
+	top: -25px;
+	left: -25px;
+	width: 90px;
+	transform: rotate(-15deg);
+	filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+	animation: float1 4s ease-in-out infinite;
+}
+
+.decor-b2 {
+	position: absolute;
+	top: 15%;
+	right: -35px;
+	width: 80px;
+	transform: rotate(10deg);
+	filter: drop-shadow(0 6px 10px rgba(0,0,0,0.25));
+	animation: float2 5s ease-in-out infinite;
+}
+
+.decor-b3 {
+	position: absolute;
+	bottom: 22%;
+	left: -30px;
+	width: 75px;
+	transform: rotate(-10deg);
+	filter: drop-shadow(0 5px 8px rgba(0,0,0,0.2));
+	animation: float1 6s ease-in-out infinite reverse;
+}
+
+.decor-cake {
+	position: absolute;
+	bottom: 110px;
+	right: -15px;
+	width: 70px;
+	transform: rotate(8deg);
+	filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+	animation: float2 7s ease-in-out infinite alternate;
+}
+
+@keyframes float1 {
+	0%, 100% { transform: translateY(0) rotate(-15deg); }
+	50% { transform: translateY(-12px) rotate(-5deg); }
+}
+
+@keyframes float2 {
+	0%, 100% { transform: translateY(0) rotate(10deg); }
+	50% { transform: translateY(-15px) rotate(20deg); }
+}
+
+/* Confetti decorations in preview */
+.overlay-card-confetti-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	overflow: hidden;
+	z-index: 1;
+}
+
+.confetti {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	opacity: 0.85;
+}
+/* Distribute confetti dots across the card */
+.confetti.c1 { top: 10%; left: 8%; background: #ff8a80; }
+.confetti.c2 { top: 15%; right: 12%; background: #ffab40; }
+.confetti.c3 { top: 45%; left: 5%; background: #ffd740; }
+.confetti.c4 { top: 55%; right: 7%; background: #69f0ae; }
+.confetti.c5 { top: 75%; left: 10%; background: #c6ff00; }
+.confetti.c6 { top: 80%; right: 15%; background: #ff8a80; }
+.confetti.c7 { bottom: 12%; left: 25%; background: #ffd740; }
+.confetti.c8 { bottom: 18%; right: 30%; background: #69f0ae; }
+.confetti.c9 { top: 30%; left: 88%; background: #ffab40; }
+.confetti.c10 { top: 68%; left: 45%; background: #ff8a80; }
+
+/* Overlay footer banner matching canvas card */
+.overlay-card-footer-banner {
+	background: #b08a58;
+	color: #ffffff;
+	font-family: 'Signika', Arial, sans-serif;
+	font-size: 16px;
+	font-weight: 500;
+	text-align: center;
+	padding: 10px;
+	margin: 12px -12px -12px;
+	border-radius: 0 0 4px 4px;
+	letter-spacing: 0.5px;
+	text-transform: none;
+}
+
+/* Upload Photo Button */
+.overlay-upload-btn {
+	display: block;
+	width: 100%;
+	max-width: 400px;
+	margin-top: 12px;
+	padding: 15px 28px;
+	border: 2px solid #b08a58;
+	border-radius: 50px;
+	background: transparent;
+	color: #b08a58;
+	font-family: 'Signika', sans-serif;
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.overlay-upload-btn:hover,
+.overlay-upload-btn:focus {
+	background: rgba(176, 138, 88, 0.08);
+	box-shadow: 0 8px 20px rgba(176, 138, 88, 0.15);
+	transform: translateY(-2px);
+	color: #8a6b43;
+	border-color: #8a6b43;
+}
+
+.overlay-upload-btn:active {
+	transform: translateY(1px);
 }
 
 /* Save button inside overlay */
