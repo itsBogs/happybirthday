@@ -107,7 +107,7 @@ $('document').ready(function(){
 
 		// Photo area with white frame (like polaroid)
 		var polaroidX = 96;
-		var polaroidY = 130;
+		var polaroidY = 210;
 		var polaroidW = width - 192;
 		var polaroidH = 1100;
 		ctx.fillStyle = '#ffffff';
@@ -221,14 +221,40 @@ $('document').ready(function(){
 		ctx.shadowOffsetX = 0;
 		ctx.shadowOffsetY = 0;
 
-		// Footer banner with "greet by your friends" (smaller size)
-		var footerHeight = 100;
-		ctx.fillStyle = '#b08a58';
-		ctx.fillRect(0, height - footerHeight, width, footerHeight);
+		// Footer banner with gold gradient background (premium design)
+		var footerHeight = 110;
+		var footerY = height - footerHeight;
+		var footerGrad = ctx.createLinearGradient(0, footerY, width, footerY);
+		footerGrad.addColorStop(0, '#8a6b43');
+		footerGrad.addColorStop(0.5, '#d4a96a');
+		footerGrad.addColorStop(1, '#8a6b43');
+		ctx.fillStyle = footerGrad;
+		ctx.fillRect(0, footerY, width, footerHeight);
+
+		// Gold border line on top of the footer banner
+		ctx.strokeStyle = '#ffffff';
+		ctx.lineWidth = 3;
+		ctx.beginPath();
+		ctx.moveTo(0, footerY + 2);
+		ctx.lineTo(width, footerY + 2);
+		ctx.stroke();
+
+		// Text: Greetings from your friends
 		ctx.fillStyle = '#ffffff';
-		ctx.font = '500 28px Signika, Arial, sans-serif';
+		ctx.shadowColor = 'rgba(0, 0, 0, 0.4)';
+		ctx.shadowBlur = 4;
+		ctx.shadowOffsetX = 1;
+		ctx.shadowOffsetY = 2;
+
+		ctx.font = '700 32px Signika, Arial, sans-serif';
 		ctx.textAlign = 'center';
-		ctx.fillText('greet by your friends', width / 2, height - footerHeight / 2 + 10);
+		ctx.fillText('✦  Greetings from your friends  ✦', width / 2, footerY + footerHeight / 2 + 10);
+
+		// Reset shadow
+		ctx.shadowColor = 'transparent';
+		ctx.shadowBlur = 0;
+		ctx.shadowOffsetX = 0;
+		ctx.shadowOffsetY = 0;
 
 		return canvas;
 	}
